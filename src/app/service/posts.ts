@@ -18,6 +18,10 @@ export async function getAllPosts(): Promise<Post[]> {
 
 export async function getFeaturedPosts(): Promise<Post[]> {
   const posts = await getAllPosts();
-  const featuredPosts = posts.filter(({ featured }) => featured);
-  return featuredPosts;
+  return posts.filter(({ featured }) => featured);
+}
+
+export async function getNonFeaturedPosts(): Promise<Post[]> {
+  const posts = await getAllPosts();
+  return posts.filter(({ featured }) => !featured);
 }
