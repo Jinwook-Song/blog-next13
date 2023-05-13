@@ -15,3 +15,9 @@ export async function getAllPosts(): Promise<Post[]> {
   const posts = JSON.parse(readFileSync(filePath, 'utf8')) as Post[];
   return posts.sort((a, b) => (a.date > b.date ? -1 : 1));
 }
+
+export async function getFeaturedPosts(): Promise<Post[]> {
+  const posts = await getAllPosts();
+  const featuredPosts = posts.filter(({ featured }) => featured);
+  return featuredPosts;
+}
