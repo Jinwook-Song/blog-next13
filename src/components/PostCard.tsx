@@ -14,10 +14,10 @@ export default function PostCard({
     <Link href={`/posts/${path}`}>
       <article className='cursor-pointer rounded-md overflow-hidden shadow-md hover:shadow-xl group'>
         <Image
-          className='w-full group-active:scale-110 transition-transform'
+          className='w-full group-hover:scale-110 transition-transform'
           src={`/images/posts/${path}.png`}
           alt={title}
-          width={300}
+          width={400}
           height={200}
         />
         <div className='flex flex-col items-center p-4'>
