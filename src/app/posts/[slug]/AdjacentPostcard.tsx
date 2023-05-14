@@ -16,15 +16,18 @@ export default function AdjacentPostcard({
   const ICON_CLASS = 'text-4xl m-4 text-yellow-300 transition-transform';
 
   return (
-    <Link className='relative w-full bg-black max-h-56' href={`/posts/${path}`}>
+    <Link
+      className='relative w-full bg-black max-h-56 group overflow-hidden'
+      href={`/posts/${path}`}
+    >
       <Image
-        className='w-full opacity-30'
+        className='w-full opacity-30 group-hover:scale-105 transition-transform'
         src={`/images/posts/${path}.png`}
         alt={title}
         width={150}
         height={100}
       />
-      <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-full flex justify-around items-center text-white group px-8'>
+      <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-full flex justify-around items-center text-white px-8'>
         {type === 'prev' && (
           <FaArrowLeft
             className={cls(ICON_CLASS, 'group-hover:-translate-x-2')}

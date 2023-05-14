@@ -1,5 +1,4 @@
 import { getNonFeaturedPosts } from '@/app/service/posts';
-import React from 'react';
 import MultiCarousel from './MultiCarousel';
 import PostCard from './PostCard';
 

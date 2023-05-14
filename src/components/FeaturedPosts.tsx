@@ -1,5 +1,4 @@
 import { getFeaturedPosts } from '@/app/service/posts';
-import React from 'react';
 import PostsGrid from './PostsGrid';
 
 export default async function FeaturedPosts() {

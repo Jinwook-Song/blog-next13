@@ -1,5 +1,4 @@
 import { PostData } from '@/app/service/posts';
-import React from 'react';
 import { AiTwotoneCalendar } from 'react-icons/ai';
 import MarkdownViewer from './MarkdownViewer';
 
