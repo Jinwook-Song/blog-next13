@@ -1,4 +1,5 @@
 import ContactForm from '@/components/ContactForm';
+import { Metadata } from 'next';
 import { AiFillGithub, AiFillLinkedin } from 'react-icons/ai';
 
 const LINKS = [
@@ -8,6 +9,11 @@ const LINKS = [
     url: 'https://www.linkedin.com/in/j-w-song-807ba326a/',
   },
 ];
+
+export const metadata: Metadata = {
+  title: 'Contact Me',
+  description: 'Jinwook에게 메일 보내기',
+};
 
 export default function ContactPage() {
   return (
