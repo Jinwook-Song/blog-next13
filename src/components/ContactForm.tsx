@@ -1,21 +1,25 @@
 'use client';
 
+import { sendContactEmail } from '@/app/service/contact';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Banner, { BannerData } from './Banner';
 
-type Form = {
+export type ContactForm = {
   from: string;
   subject: string;
   message: string;
 };
 
+const DEFULAT_DATA: ContactForm = {
+  from: '',
+  subject: '',
+  message: '',
+};
+
 export default function ContactForm() {
-  const [form, setForm] = useState<Form>({
-    from: '',
-    subject: '',
-    message: '',
-  });
+  const [form, setForm] = useState<ContactForm>(DEFULAT_DATA);
   const [banner, setBanner] = useState<BannerData | null>(null);
+  const [loading, setLoading] = useState(false);
 
   function onChange(e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
     const { name, value } = e.currentTarget;
@@ -24,12 +28,26 @@ export default function ContactForm() {
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    console.log(form);
-    setBanner({ message: '성공', state: 'success' });
-    setTimeout(() => {
-      setBanner(null);
-    }, 3000);
+    setLoading(true);
+    sendContactEmail(form)
+      .then(() => {
+        setBanner({ message: '메일이 발송되었습니다.', state: 'success' });
+        setForm(DEFULAT_DATA);
+      })
+      .catch(() => {
+        setBanner({
+          message: '메일 발송 실패. 다시 시도해주세요.',
+          state: 'error',
+        });
+      })
+      .finally(() => {
+        setLoading(false);
+        setTimeout(() => {
+          setBanner(null);
+        }, 3000);
+      });
   }
+
   return (
     <section className='w-full max-w-md'>
       {banner && <Banner banner={banner} />}
@@ -41,7 +59,7 @@ export default function ContactForm() {
           Your Email
         </label>
         <input
-          className='focus:outline-none p-2 rounded-sm'
+          className='focus:outline-none p-2 rounded-sm text-black'
           type='email'
           id='from'
           name='from'
@@ -54,7 +72,7 @@ export default function ContactForm() {
           Subject
         </label>
         <input
-          className='focus:outline-none p-2 rounded-sm'
+          className='focus:outline-none p-2 rounded-sm text-black'
           type='text'
           id='subject'
           name='subject'
@@ -74,8 +92,11 @@ export default function ContactForm() {
           value={form.message}
           onChange={onChange}
         />
-        <button className='bg-yellow-300 text-black font-semibold hover:bg-yellow-400 rounded-sm p-2'>
-          Submit
+        <button
+          disabled={loading}
+          className='bg-yellow-300 text-black font-semibold hover:bg-yellow-400 rounded-sm p-2 disabled:cursor-not-allowed disabled:opacity-30'
+        >
+          {loading ? 'Sending...' : 'Submit'}
         </button>
       </form>
     </section>
