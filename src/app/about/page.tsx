@@ -5,8 +5,8 @@ const TITLE_CLASS = 'text-2xl font-semibold text-gray-800 my-2';
 
 export const metadata: Metadata = {
   title: 'About Me',
-  description: 'Jinwook 커리어 소개'
-}
+  description: 'Jinwook 커리어 소개',
+};
 
 export default function AboutPage() {
   return (
@@ -24,7 +24,7 @@ export default function AboutPage() {
         <p>
           React, NextJs <br />
           Express, Nest, Django <br />
-          Flutter, Go
+          Flutter, Svelte, Go
         </p>
       </section>
     </>
