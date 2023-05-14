@@ -1,8 +1,8 @@
-import { getPostData } from '@/app/service/posts';
+import { getFeaturedPosts, getPostData } from '@/app/service/posts';
+import AdjacentPostcard from '@/components/AdjacentPostcard';
 import PostContent from '@/components/PostContent';
 import { Metadata } from 'next';
 import Image from 'next/image';
-import AdjacentPostcard from './AdjacentPostcard';
 
 type Props = {
   params: {
@@ -39,4 +39,10 @@ export default async function page({ params: { slug: fileName } }: Props) {
       </section>
     </article>
   );
+}
+
+// 자주 사용하는 포스트에 대해 미리 static하게 생성해둠 (ssr -> ssg)
+export async function generateStaticParams() {
+  const posts = await getFeaturedPosts();
+  return posts.map(({ path: slug }) => ({ slug }));
 }
